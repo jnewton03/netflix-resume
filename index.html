@@ -113,6 +113,62 @@
             font-weight: bold;
         }
 
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+        }
+
+        .mobile-nav-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 30px;
+        }
+
+        .mobile-nav-content a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav-content a:hover {
+            color: #e50914;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -259,31 +315,41 @@
             left: 0;
             right: 0;
             padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-            background: #181818;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
+            backdrop-filter: blur(2px);
         }
 
         .content-card:hover .card-info {
-            transform: translateY(0);
+            transform: translateY(-10px);
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 70%, transparent 100%);
+            backdrop-filter: blur(4px);
         }
 
         .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.2;
         }
 
         .card-meta {
-            font-size: 12px;
+            font-size: 14px;
             color: #46d369;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
         .card-description {
-            font-size: 12px;
-            color: #d2d2d2;
+            font-size: 14px;
+            color: #e5e5e5;
             line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            margin-bottom: 8px;
         }
 
         .card-tags {
@@ -294,11 +360,14 @@
         }
 
         .tag {
-            padding: 2px 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            font-size: 10px;
-            color: #b3b3b3;
+            padding: 4px 8px;
+            background: rgba(229, 9, 20, 0.8);
+            border-radius: 12px;
+            font-size: 11px;
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            border: 1px solid rgba(229, 9, 20, 0.3);
         }
 
         /* Modal */
@@ -430,6 +499,36 @@
             .nav-links {
                 display: none;
             }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .profile-section {
+                gap: 15px;
+            }
+
+            .content-card {
+                min-width: 200px;
+                height: 120px;
+            }
+
+            .content-card.large {
+                min-width: 280px;
+                height: 160px;
+            }
+
+            .card-title {
+                font-size: 14px;
+            }
+
+            .card-meta {
+                font-size: 12px;
+            }
+
+            .card-description {
+                font-size: 12px;
+            }
         }
 
         /* Loading animation */
@@ -456,8 +555,8 @@
     </div>
 
     <!-- Header -->
-    <header id="header">
-        <nav>
+    <header id="header" role="banner">
+        <nav role="navigation" aria-label="Main navigation">
             <div style="display: flex; align-items: center;">
                 <div class="logo">JAKEFLIX</div>
                 <ul class="nav-links">
@@ -469,6 +568,7 @@
                 </ul>
             </div>
             <div class="profile-section">
+                <button class="mobile-menu-toggle" onclick="openMobileMenu()" aria-label="Open mobile menu" aria-expanded="false">☰</button>
                 <span>🔍</span>
                 <span>🔔</span>
                 <div class="profile-icon">JN</div>
@@ -476,10 +576,23 @@
         </nav>
     </header>
 
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav" role="dialog" aria-labelledby="mobile-nav-title" aria-hidden="true">
+        <button class="mobile-nav-close" onclick="closeMobileMenu()" aria-label="Close mobile menu">×</button>
+        <div class="mobile-nav-content" role="menu">
+            <a href="#home" onclick="scrollToSection('home'); closeMobileMenu();">Home</a>
+            <a href="#experience" onclick="scrollToSection('experience'); closeMobileMenu();">Experience</a>
+            <a href="#skills" onclick="scrollToSection('skills'); closeMobileMenu();">Skills</a>
+            <a href="#projects" onclick="scrollToSection('projects'); closeMobileMenu();">Projects</a>
+            <a href="#education" onclick="scrollToSection('education'); closeMobileMenu();">Education</a>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <main>
+    <section class="hero" id="home" aria-labelledby="hero-title">
         <div class="hero-content fade-in">
-            <h1 class="hero-title">Jake Newton</h1>
+            <h1 class="hero-title" id="hero-title">Jake Newton</h1>
             <p class="hero-subtitle">DevOps Manager • Leadership Series</p>
             <p class="hero-description">
                 Experienced and enthusiastic DevOps leader who thrives in start-ups as well as established companies. 
@@ -487,10 +600,10 @@
                 and transforms manual processes into automated DevOps excellence in this action-packed tech saga.
             </p>
             <div class="hero-buttons">
-                <button class="btn btn-play" onclick="playIntro()">
+                <button class="btn btn-play" onclick="playIntro()" aria-label="Play career introduction">
                     ▶ Play Intro
                 </button>
-                <button class="btn btn-info" onclick="showModal('about')">
+                <button class="btn btn-info" onclick="showModal('about')" aria-label="Show more information about Jake Newton">
                     ℹ More Info
                 </button>
             </div>
@@ -498,8 +611,8 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="content-section" id="experience">
-        <h2 class="section-title">Continue Watching My Career</h2>
+    <section class="content-section" id="experience" aria-labelledby="experience-title">
+        <h2 class="section-title" id="experience-title">Continue Watching My Career</h2>
         <div class="content-row">
             <button class="scroll-arrow left" onclick="scrollRow('experience-row', -300)">‹</button>
             <div class="content-row" id="experience-row">
@@ -561,8 +674,8 @@
     </section>
 
     <!-- Skills Section -->
-    <section class="content-section" id="skills">
-        <h2 class="section-title">Trending Skills Right Now</h2>
+    <section class="content-section" id="skills" aria-labelledby="skills-title">
+        <h2 class="section-title" id="skills-title">Trending Skills Right Now</h2>
         <div class="content-row">
             <div class="content-card skill-card" onclick="showModal('skills')">
                 <div class="card-gradient"></div>
@@ -616,8 +729,8 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="content-section" id="projects">
-        <h2 class="section-title">Award-Winning Projects</h2>
+    <section class="content-section" id="projects" aria-labelledby="projects-title">
+        <h2 class="section-title" id="projects-title">Award-Winning Projects</h2>
         <div class="content-row">
             <div class="content-card project-card" onclick="showModal('project-1')">
                 <div class="card-gradient"></div>
@@ -701,8 +814,8 @@
     </section>
 
     <!-- Education Section -->
-    <section class="content-section" id="education">
-        <h2 class="section-title">Educational Background</h2>
+    <section class="content-section" id="education" aria-labelledby="education-title">
+        <h2 class="section-title" id="education-title">Educational Background</h2>
         <div class="content-row">
             <div class="content-card education-card" onclick="showModal('education')">
                 <div class="card-gradient"></div>
@@ -738,9 +851,10 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Modal -->
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-close" onclick="closeModal()">×</div>
             <div class="modal-hero">
@@ -759,12 +873,25 @@
     </div>
 
     <script>
-        // Hide loading screen
+        // Debug: Log when script starts loading
+        console.log('JAKEFLIX: Script loading started');
+        
+        // Hide loading screen with error handling
         setTimeout(() => {
-            document.getElementById('loading-screen').style.opacity = '0';
-            setTimeout(() => {
+            try {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        console.log('JAKEFLIX: Loading screen hidden');
+                    }, 500);
+                }
+            } catch (error) {
+                console.error('JAKEFLIX: Error hiding loading screen:', error);
+                // Fallback: hide loading screen immediately
                 document.getElementById('loading-screen').style.display = 'none';
-            }, 500);
+            }
         }, 1500);
 
         // Header scroll effect
@@ -982,23 +1109,54 @@
             }
         };
 
-        // Modal functions
+        // Modal functions with error handling
         function showModal(contentKey) {
-            const modal = document.getElementById('modal');
-            const data = modalData[contentKey] || modalData['about'];
-            
-            document.getElementById('modal-title').textContent = data.title;
-            document.getElementById('modal-body').innerHTML = data.content;
-            
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            console.log('JAKEFLIX: showModal called with key:', contentKey);
+            try {
+                const modal = document.getElementById('modal');
+                if (!modal) {
+                    console.error('JAKEFLIX: Modal element not found');
+                    return;
+                }
+                
+                const data = modalData[contentKey] || modalData['about'];
+                if (!data) {
+                    console.error('JAKEFLIX: Modal data not found for key:', contentKey);
+                    return;
+                }
+                
+                const titleElement = document.getElementById('modal-title');
+                const bodyElement = document.getElementById('modal-body');
+                
+                if (titleElement) titleElement.textContent = data.title;
+                if (bodyElement) bodyElement.innerHTML = data.content;
+                
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                console.log('JAKEFLIX: Modal opened successfully');
+            } catch (error) {
+                console.error('JAKEFLIX: Error in showModal:', error);
+            }
         }
+        
+        // Make functions globally accessible
+        window.showModal = showModal;
 
         function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            try {
+                const modal = document.getElementById('modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    console.log('JAKEFLIX: Modal closed');
+                }
+            } catch (error) {
+                console.error('JAKEFLIX: Error closing modal:', error);
+            }
         }
+        
+        // Make functions globally accessible
+        window.closeModal = closeModal;
 
         // Click outside modal to close
         window.onclick = function(event) {
@@ -1010,37 +1168,95 @@
 
         // Scroll functions
         function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            try {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    console.log('JAKEFLIX: Scrolled to section:', sectionId);
+                }
+            } catch (error) {
+                console.error('JAKEFLIX: Error scrolling to section:', error);
+            }
         }
 
         function scrollRow(rowId, amount) {
-            const row = document.getElementById(rowId);
-            row.scrollLeft += amount;
+            try {
+                const row = document.getElementById(rowId);
+                if (row) {
+                    row.scrollLeft += amount;
+                    console.log('JAKEFLIX: Scrolled row:', rowId, 'by', amount);
+                }
+            } catch (error) {
+                console.error('JAKEFLIX: Error scrolling row:', error);
+            }
         }
+        
+        // Make functions globally accessible
+        window.scrollToSection = scrollToSection;
+        window.scrollRow = scrollRow;
 
         // Play intro function
         function playIntro() {
-            // Create a fun intro message
-            const introMessages = [
-                "Welcome to Jake Newton's DevOps Journey!",
-                "From Network Engineer to DevOps Manager...",
-                "Cloud Featuring: AWS cost optimization, team leadership, and infrastructure automation!",
-                "Security Special guest: SOC2 compliance and zero security vulnerabilities!",
-                "Ready to connect? Email: aliasjake@gmail.com or call: 214-926-0166"
-            ];
-            
-            let currentMessage = 0;
-            const showNextMessage = () => {
-                if (currentMessage < introMessages.length) {
-                    alert(introMessages[currentMessage]);
-                    currentMessage++;
+            try {
+                console.log('JAKEFLIX: Playing intro');
+                // Create a fun intro message
+                const introMessages = [
+                    "Welcome to Jake Newton's DevOps Journey!",
+                    "From Network Engineer to DevOps Manager...",
+                    "Cloud Featuring: AWS cost optimization, team leadership, and infrastructure automation!",
+                    "Security Special guest: SOC2 compliance and zero security vulnerabilities!",
+                    "Ready to connect? Email: aliasjake@gmail.com or call: 214-926-0166"
+                ];
+                
+                let currentMessage = 0;
+                const showNextMessage = () => {
                     if (currentMessage < introMessages.length) {
-                        setTimeout(showNextMessage, 1000);
+                        alert(introMessages[currentMessage]);
+                        currentMessage++;
+                        if (currentMessage < introMessages.length) {
+                            setTimeout(showNextMessage, 1000);
+                        }
                     }
-                }
-            };
-            showNextMessage();
+                };
+                showNextMessage();
+            } catch (error) {
+                console.error('JAKEFLIX: Error playing intro:', error);
+            }
         }
+        
+        // Make function globally accessible
+        window.playIntro = playIntro;
+
+        // Mobile navigation functions
+        function openMobileMenu() {
+            try {
+                const mobileNav = document.getElementById('mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    console.log('JAKEFLIX: Mobile menu opened');
+                }
+            } catch (error) {
+                console.error('JAKEFLIX: Error opening mobile menu:', error);
+            }
+        }
+
+        function closeMobileMenu() {
+            try {
+                const mobileNav = document.getElementById('mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    console.log('JAKEFLIX: Mobile menu closed');
+                }
+            } catch (error) {
+                console.error('JAKEFLIX: Error closing mobile menu:', error);
+            }
+        }
+
+        // Make mobile menu functions globally accessible
+        window.openMobileMenu = openMobileMenu;
+        window.closeMobileMenu = closeMobileMenu;
 
         // Add hover sound effects (optional enhancement)
         document.querySelectorAll('.content-card').forEach(card => {
@@ -1054,6 +1270,16 @@
             if (e.key === 'Escape') {
                 closeModal();
             }
+        });
+        
+        // Final debug log
+        console.log('JAKEFLIX: All functions loaded and made globally accessible');
+        console.log('JAKEFLIX: Available functions:', {
+            showModal: typeof window.showModal,
+            closeModal: typeof window.closeModal,
+            playIntro: typeof window.playIntro,
+            scrollToSection: typeof window.scrollToSection,
+            scrollRow: typeof window.scrollRow
         });
     </script>
 </body>
