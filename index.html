@@ -14,9 +14,18 @@
         body {
             background: #141414;
             color: #fff;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             position: relative;
+            line-height: 1.4;
+        }
+        
+        /* Import Netflix Sans font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        /* Netflix-inspired font stack */
+        body {
+            font-family: 'Inter', 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
         /* Loading Screen */
@@ -189,17 +198,21 @@
         }
 
         .hero-title {
-            font-size: 64px;
-            font-weight: 700;
+            font-size: clamp(36px, 8vw, 72px);
+            font-weight: 800;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+            letter-spacing: -2px;
+            line-height: 0.9;
         }
 
         .hero-subtitle {
-            font-size: 24px;
+            font-size: clamp(18px, 3vw, 28px);
             color: #fff;
             margin-bottom: 20px;
-            font-weight: 400;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .hero-description {
@@ -253,10 +266,12 @@
         }
 
         .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: clamp(18px, 2.5vw, 26px);
+            font-weight: 700;
+            margin-bottom: 25px;
             color: #e5e5e5;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
 
         .content-row {
@@ -291,6 +306,24 @@
         .content-card.large {
             min-width: 350px;
             height: 200px;
+        }
+
+        .content-card.featured {
+            min-width: 400px;
+            height: 250px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-card.compact {
+            min-width: 180px;
+            height: 120px;
+        }
+
+        /* Make first experience card featured */
+        .content-card:first-of-type {
+            transform: scale(1.05);
+            z-index: 3;
         }
 
         .card-image {
@@ -833,7 +866,7 @@
                     <div class="card-description">Advanced Cloud Architecture</div>
                 </div>
             </div>
-            <div class="content-card achievement-card" onclick="showModal('certifications')">
+            <div class="content-card compact achievement-card" onclick="showModal('certifications')">
                 <div class="card-gradient"></div>
                 <div class="card-info">
                     <div class="card-title">AWS Solutions Architect</div>
@@ -841,7 +874,7 @@
                     <div class="card-description">Cloud Infrastructure Design</div>
                 </div>
             </div>
-            <div class="content-card achievement-card" onclick="showModal('certifications')">
+            <div class="content-card compact achievement-card" onclick="showModal('certifications')">
                 <div class="card-gradient"></div>
                 <div class="card-info">
                     <div class="card-title">Community Leader</div>
@@ -876,27 +909,40 @@
         // Debug: Log when script starts loading
         console.log('JAKEFLIX: Script loading started');
         
-        // Hide loading screen with error handling
-        setTimeout(() => {
+        // Immediately add fallback for loading screen
+        function hideLoadingScreen() {
             try {
-                const loadingScreen = document.getElementById('loading-screen');
+                console.log('JAKEFLIX: Attempting to hide loading screen');
+                var loadingScreen = document.getElementById('loading-screen');
                 if (loadingScreen) {
                     loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
+                    setTimeout(function() {
                         loadingScreen.style.display = 'none';
-                        console.log('JAKEFLIX: Loading screen hidden');
+                        console.log('JAKEFLIX: Loading screen hidden successfully');
                     }, 500);
+                } else {
+                    console.error('JAKEFLIX: Loading screen element not found');
                 }
             } catch (error) {
                 console.error('JAKEFLIX: Error hiding loading screen:', error);
-                // Fallback: hide loading screen immediately
-                document.getElementById('loading-screen').style.display = 'none';
+                // Emergency fallback
+                var fallbackScreen = document.getElementById('loading-screen');
+                if (fallbackScreen) {
+                    fallbackScreen.style.display = 'none';
+                }
             }
-        }, 1500);
+        }
+
+        // Multiple timeout attempts for better reliability
+        setTimeout(hideLoadingScreen, 1500);
+        setTimeout(hideLoadingScreen, 3000); // Backup timeout
+        
+        // Also try on window load as final fallback
+        window.addEventListener('load', hideLoadingScreen);
 
         // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            var header = document.getElementById('header');
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
             } else {
@@ -964,42 +1010,42 @@
                 content: `
                     <h3>Infrastructure & Systems</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">Infrastructure ⭐⭐⭐⭐⭐ Expert</div>
-                        <div class="skill-item">Linux/Windows ⭐⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">Networking ⭐⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">Security ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Infrastructure • Expert Level</div>
+                        <div class="skill-item">Linux/Windows • Advanced</div>
+                        <div class="skill-item">Networking • Advanced</div>
+                        <div class="skill-item">Security • Advanced</div>
                     </div>
                     
                     <h3>Cloud Platforms</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">AWS ⭐⭐⭐⭐⭐ Advanced + Certified</div>
-                        <div class="skill-item">Azure ⭐⭐⭐⭐ Intermediate</div>
-                        <div class="skill-item">GCP ⭐⭐⭐ Intermediate</div>
-                        <div class="skill-item">Multi-Cloud ⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">AWS • Advanced + Certified</div>
+                        <div class="skill-item">Azure • Intermediate</div>
+                        <div class="skill-item">GCP • Intermediate</div>
+                        <div class="skill-item">Multi-Cloud • Advanced</div>
                     </div>
                     
                     <h3>Automation & Configuration</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">Docker ⭐⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">Kubernetes ⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">Ansible ⭐⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">Terraform ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Docker • Advanced</div>
+                        <div class="skill-item">Kubernetes • Advanced</div>
+                        <div class="skill-item">Ansible • Advanced</div>
+                        <div class="skill-item">Terraform • Advanced</div>
                     </div>
                     
                     <h3>CI/CD & Scripting</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">Jenkins ⭐⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">GitHub Actions ⭐⭐⭐⭐⭐ Advanced</div>
-                        <div class="skill-item">Bash/Python ⭐⭐⭐⭐ Intermediate</div>
-                        <div class="skill-item">Git ⭐⭐⭐⭐ Intermediate</div>
+                        <div class="skill-item">Jenkins • Advanced</div>
+                        <div class="skill-item">GitHub Actions • Advanced</div>
+                        <div class="skill-item">Bash/Python • Intermediate</div>
+                        <div class="skill-item">Git • Intermediate</div>
                     </div>
                     
                     <h3>Leadership Skills</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">Team Leadership ⭐⭐⭐⭐⭐ Expert</div>
-                        <div class="skill-item">Collaboration ⭐⭐⭐⭐⭐ Expert</div>
-                        <div class="skill-item">Critical Thinking ⭐⭐⭐⭐⭐ Expert</div>
-                        <div class="skill-item">Project Management ⭐⭐⭐⭐⭐ Expert</div>
+                        <div class="skill-item">Team Leadership • Expert</div>
+                        <div class="skill-item">Collaboration • Expert</div>
+                        <div class="skill-item">Critical Thinking • Expert</div>
+                        <div class="skill-item">Project Management • Expert</div>
                     </div>
                 `
             },
@@ -1209,7 +1255,7 @@
                 ];
                 
                 let currentMessage = 0;
-                const showNextMessage = () => {
+                var showNextMessage = function() {
                     if (currentMessage < introMessages.length) {
                         alert(introMessages[currentMessage]);
                         currentMessage++;
@@ -1259,14 +1305,14 @@
         window.closeMobileMenu = closeMobileMenu;
 
         // Add hover sound effects (optional enhancement)
-        document.querySelectorAll('.content-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
+        document.querySelectorAll('.content-card').forEach(function(card) {
+            card.addEventListener('mouseenter', function() {
                 // Could add a subtle hover sound here
             });
         });
 
         // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
