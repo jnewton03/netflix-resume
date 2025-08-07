@@ -917,18 +917,20 @@
                 if (loadingScreen) {
                     loadingScreen.style.opacity = '0';
                     setTimeout(function() {
-                        loadingScreen.style.display = 'none';
-                        console.log('JAKEFLIX: Loading screen hidden successfully');
+                        // Completely remove the loading screen from DOM
+                        loadingScreen.remove();
+                        console.log('JAKEFLIX: Loading screen removed from DOM');
                     }, 500);
                 } else {
                     console.error('JAKEFLIX: Loading screen element not found');
                 }
             } catch (error) {
                 console.error('JAKEFLIX: Error hiding loading screen:', error);
-                // Emergency fallback
+                // Emergency fallback - remove from DOM immediately
                 var fallbackScreen = document.getElementById('loading-screen');
                 if (fallbackScreen) {
-                    fallbackScreen.style.display = 'none';
+                    fallbackScreen.remove();
+                    console.log('JAKEFLIX: Emergency fallback - loading screen removed');
                 }
             }
         }
