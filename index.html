@@ -367,6 +367,20 @@
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
             backdrop-filter: blur(2px);
         }
+        
+        .card-badge {
+            position: absolute;
+            top: -40px;
+            right: 10px;
+            background: rgba(229, 9, 20, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            text-shadow: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
 
         .content-card:hover .card-info {
             transform: translateY(-10px);
@@ -491,12 +505,61 @@
             background: rgba(229, 9, 20, 0.2);
         }
 
-        /* Custom content backgrounds */
+        /* Custom content backgrounds with Netflix-style images */
         .experience-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .skill-card { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
         .project-card { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
         .education-card { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
         .achievement-card { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+        /* Netflix-style card backgrounds with tech imagery */
+        .liquibase-card {
+            background: linear-gradient(135deg, rgba(229, 9, 20, 0.9) 0%, rgba(0, 0, 0, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%23141414" width="400" height="250"/><g fill="%23333" opacity="0.3"><rect x="20" y="20" width="360" height="20" rx="10"/><rect x="20" y="50" width="200" height="15" rx="7"/><rect x="20" y="75" width="150" height="15" rx="7"/><rect x="20" y="100" width="300" height="15" rx="7"/></g><text x="200" y="180" font-family="monospace" font-size="24" fill="%23e50914" text-anchor="middle" opacity="0.6">LIQUIBASE</text></svg>');
+            background-size: cover;
+        }
+        
+        .saas-platform-card {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.9) 0%, rgba(0, 242, 254, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%23263238" width="400" height="250"/><g fill="%23fff" opacity="0.1"><circle cx="80" cy="80" r="30"/><circle cx="200" cy="60" r="20"/><circle cx="320" cy="90" r="25"/><path d="M80 110 L200 80 L320 115" stroke="%23fff" stroke-width="2" fill="none"/></g><text x="200" y="180" font-family="monospace" font-size="16" fill="%23fff" text-anchor="middle" opacity="0.4">SERVERLESS</text></svg>');
+            background-size: cover;
+        }
+        
+        .cost-optimization-card {
+            background: linear-gradient(135deg, rgba(67, 233, 123, 0.9) 0%, rgba(56, 249, 215, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%231a4731" width="400" height="250"/><g fill="%23fff" opacity="0.2"><path d="M50 200 Q100 150 150 180 T250 160 T350 140" stroke="%2343e97b" stroke-width="3" fill="none"/><circle cx="150" cy="180" r="4" fill="%2343e97b"/><circle cx="250" cy="160" r="4" fill="%2343e97b"/></g><text x="200" y="40" font-family="monospace" font-size="14" fill="%23fff" text-anchor="middle" opacity="0.5">37% COST REDUCTION</text></svg>');
+            background-size: cover;
+        }
+        
+        .nexus-migration-card {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.9) 0%, rgba(255, 87, 51, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%232d1810" width="400" height="250"/><g fill="%23fff" opacity="0.15"><rect x="50" y="100" width="80" height="50" rx="5" stroke="%23ff9800" stroke-width="2" fill="none"/><rect x="270" y="100" width="80" height="50" rx="5" stroke="%23ff9800" stroke-width="2" fill="none"/><path d="M130 125 L270 125" stroke="%23ff9800" stroke-width="3" marker-end="url(%23arrowhead)"/></g><text x="200" y="200" font-family="monospace" font-size="12" fill="%23fff" text-anchor="middle" opacity="0.6">EFS → S3</text></svg>');
+            background-size: cover;
+        }
+        
+        .github-security-card {
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.9) 0%, rgba(34, 139, 230, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%231a1625" width="400" height="250"/><g fill="%23fff" opacity="0.1"><path d="M200 50 L220 70 L200 90 L180 70 Z" fill="%23228be6"/><circle cx="200" cy="130" r="8" stroke="%23228be6" stroke-width="2" fill="none"/><rect x="170" y="160" width="60" height="40" rx="5" stroke="%23228be6" stroke-width="1" fill="none"/></g><text x="200" y="220" font-family="monospace" font-size="10" fill="%23fff" text-anchor="middle" opacity="0.5">GITHUB SECURITY</text></svg>');
+            background-size: cover;
+        }
+        
+        .qa-automation-card {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.9) 0%, rgba(255, 140, 0, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%232d1f0f" width="400" height="250"/><g fill="%23fff" opacity="0.1"><rect x="80" y="80" width="240" height="90" rx="10" stroke="%23ff8c00" stroke-width="2" fill="none"/><rect x="100" y="100" width="200" height="10" rx="5" fill="%23ff8c00" opacity="0.3"/><rect x="100" y="120" width="150" height="8" rx="4" fill="%23ff8c00" opacity="0.2"/><rect x="100" y="140" width="180" height="8" rx="4" fill="%23ff8c00" opacity="0.2"/></g><text x="200" y="200" font-family="monospace" font-size="10" fill="%23fff" text-anchor="middle" opacity="0.6">DOCKER AUTOMATION</text></svg>');
+            background-size: cover;
+        }
+        
+        .soc2-card {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.9) 0%, rgba(139, 0, 139, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%232d1220" width="400" height="250"/><g fill="%23fff" opacity="0.15"><path d="M200 60 L220 80 L200 140 L180 80 Z" fill="%23dc143c"/><circle cx="200" cy="100" r="25" stroke="%23dc143c" stroke-width="2" fill="none"/></g><text x="200" y="200" font-family="monospace" font-size="12" fill="%23fff" text-anchor="middle" opacity="0.5">SOC2 TYPE II</text></svg>');
+            background-size: cover;
+        }
+        
+        .infrastructure-card {
+            background: linear-gradient(135deg, rgba(106, 90, 205, 0.9) 0%, rgba(30, 144, 255, 0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect fill="%231e1830" width="400" height="250"/><g fill="%23fff" opacity="0.1"><rect x="50" y="70" width="60" height="40" rx="5" stroke="%236a5acd" stroke-width="2" fill="none"/><rect x="170" y="70" width="60" height="40" rx="5" stroke="%236a5acd" stroke-width="2" fill="none"/><rect x="290" y="70" width="60" height="40" rx="5" stroke="%236a5acd" stroke-width="2" fill="none"/><rect x="110" y="140" width="60" height="40" rx="5" stroke="%236a5acd" stroke-width="2" fill="none"/><rect x="230" y="140" width="60" height="40" rx="5" stroke="%236a5acd" stroke-width="2" fill="none"/></g><text x="200" y="220" font-family="monospace" font-size="10" fill="%23fff" text-anchor="middle" opacity="0.5">INFRASTRUCTURE</text></svg>');
+            background-size: cover;
+        }
 
         /* Scroll arrows */
         .scroll-arrow {
@@ -663,16 +726,18 @@
         <div class="content-row">
             <button class="scroll-arrow left" onclick="scrollRow('experience-row', -300)">‹</button>
             <div class="content-row" id="experience-row">
-                <div class="content-card large experience-card" onclick="showModal('experience-1')">
+                <div class="content-card featured experience-card liquibase-card" onclick="showModal('experience-1')">
                     <div class="card-gradient"></div>
                     <div class="card-info">
+                        <div class="card-badge">🆕 UPDATED</div>
                         <div class="card-title">The DevOps Revolution</div>
-                        <div class="card-meta">2019 - Present • 98% Match</div>
+                        <div class="card-meta">2020 - Present • 99% Match</div>
                         <div class="card-description">Liquibase • Manager of DevOps</div>
                         <div class="card-tags">
-                            <span class="tag">5 Product Teams</span>
-                            <span class="tag">AWS Cost -40%</span>
-                            <span class="tag">SOC2</span>
+                            <span class="tag">520 Tickets</span>
+                            <span class="tag">37% Cost Cut</span>
+                            <span class="tag">SOC2 ✓</span>
+                            <span class="tag">2,718 Points</span>
                         </div>
                     </div>
                 </div>
@@ -724,7 +789,7 @@
     <section class="content-section" id="skills" aria-labelledby="skills-title">
         <h2 class="section-title" id="skills-title">Trending Skills Right Now</h2>
         <div class="content-row">
-            <div class="content-card skill-card" onclick="showModal('skills')">
+            <div class="content-card skill-card infrastructure-card" onclick="showModal('skills')">
                 <div class="card-gradient"></div>
                 <div class="card-info">
                     <div class="card-title">Infrastructure Mastery</div>
@@ -779,16 +844,16 @@
     <section class="content-section" id="projects" aria-labelledby="projects-title">
         <h2 class="section-title" id="projects-title">Award-Winning Projects</h2>
         <div class="content-row">
-            <div class="content-card project-card" onclick="showModal('project-1')">
+            <div class="content-card project-card saas-platform-card" onclick="showModal('project-1')">
                 <div class="card-gradient"></div>
                 <div class="card-info">
                     <div class="card-title">Greenfield SaaS Platform</div>
                     <div class="card-meta">🏆 PLG Model</div>
-                    <div class="card-description">2 Serverless Applications Built</div>
+                    <div class="card-description">liquibase.io • Multi-AZ Architecture</div>
                     <div class="card-tags">
                         <span class="tag">AWS</span>
                         <span class="tag">Terraform</span>
-                        <span class="tag">Serverless</span>
+                        <span class="tag">99.9% Uptime</span>
                     </div>
                 </div>
             </div>
@@ -818,16 +883,16 @@
                     </div>
                 </div>
             </div>
-            <div class="content-card project-card" onclick="showModal('project-4')">
+            <div class="content-card project-card cost-optimization-card" onclick="showModal('project-4')">
                 <div class="card-gradient"></div>
                 <div class="card-info">
-                    <div class="card-title">AWS Cost Optimization</div>
-                    <div class="card-meta">💰 40% Reduction</div>
-                    <div class="card-description">Rightsizing & Best Practices</div>
+                    <div class="card-title">Infrastructure Cost Optimization</div>
+                    <div class="card-meta">💰 37% Reduction</div>
+                    <div class="card-description">$5.2K → $3.3K Monthly</div>
                     <div class="card-tags">
                         <span class="tag">AWS</span>
                         <span class="tag">FinOps</span>
-                        <span class="tag">Automation</span>
+                        <span class="tag">RDS</span>
                     </div>
                 </div>
             </div>
@@ -844,16 +909,58 @@
                     </div>
                 </div>
             </div>
-            <div class="content-card project-card" onclick="showModal('project-6')">
+            <div class="content-card project-card soc2-card" onclick="showModal('project-6')">
                 <div class="card-gradient"></div>
                 <div class="card-info">
                     <div class="card-title">SOC2 Compliance</div>
                     <div class="card-meta">🛡️ 100% Secure</div>
                     <div class="card-description">Zero Critical Vulnerabilities</div>
                     <div class="card-tags">
-                        <span class="tag">Security</span>
-                        <span class="tag">Compliance</span>
+                        <span class="tag">Vanta</span>
                         <span class="tag">SOC2</span>
+                        <span class="tag">Enterprise</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card nexus-migration-card" onclick="showModal('project-7')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-badge">🆕 NEW</div>
+                    <div class="card-title">Nexus EFS → S3 Migration</div>
+                    <div class="card-meta">🚀 70% Cost Savings</div>
+                    <div class="card-description">818GB Artifact Repository</div>
+                    <div class="card-tags">
+                        <span class="tag">S3</span>
+                        <span class="tag">EFS</span>
+                        <span class="tag">Performance</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card github-security-card" onclick="showModal('project-8')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-badge">🆕 NEW</div>
+                    <div class="card-title">GitHub Security Modernization</div>
+                    <div class="card-meta">🔒 50+ Repositories</div>
+                    <div class="card-description">Branch Protection → Repository Rulesets</div>
+                    <div class="card-tags">
+                        <span class="tag">GitHub</span>
+                        <span class="tag">Security</span>
+                        <span class="tag">Terraform</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card qa-automation-card" onclick="showModal('project-9')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-badge">🆕 NEW</div>
+                    <div class="card-title">QA Docker Automation</div>
+                    <div class="card-meta">⚡ Hours → 10 Minutes</div>
+                    <div class="card-description">Any Branch Testing</div>
+                    <div class="card-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">GitHub Actions</span>
+                        <span class="tag">QA</span>
                     </div>
                 </div>
             </div>
@@ -966,7 +1073,7 @@
             }
         });
 
-        // Modal content data - simplified for maximum compatibility
+        // Modal content data with enhanced achievement details
         var modalData = {
             'about': {
                 title: 'About Jake Newton - DevOps Manager', 
@@ -975,26 +1082,28 @@
             'experience-1': {
                 title: 'Manager of DevOps at Liquibase',
                 content: `
-                    <h3>The Current Season (2019 - Present)</h3>
+                    <h3>The Current Season (2020 - Present)</h3>
                     <p>The latest chapter in Jake's career showcases his leadership in building DevOps excellence 
                     at a growing database change management company, where he transformed infrastructure and processes.</p>
                     
-                    <h3>Major Story Arcs</h3>
+                    <h3>Recent Achievements (2024-2025)</h3>
                     <ul>
-                        <li><strong>Team Building:</strong> Built out DevOps Team from scratch to support 5 different product teams</li>
-                        <li><strong>Greenfield Innovation:</strong> Designed, built, and deployed 2 greenfield SaaS applications using Serverless architecture</li>
-                        <li><strong>The Great Optimization:</strong> Reduced Jenkins pipeline time from 48 hours to under 5 hours, saving massive costs</li>
-                        <li><strong>Database Platform Revolution:</strong> Increased platform support by 100% using multi-cloud strategy</li>
-                        <li><strong>Cost Optimization Saga:</strong> Slashed AWS bill by 40% through rightsizing and best practices</li>
-                        <li><strong>Security Champion:</strong> Achieved SOC2 compliance with zero critical vulnerabilities</li>
+                        <li><strong>Team Productivity Excellence:</strong> Led team of 3 engineers to deliver 520 tickets (2,718 story points) in 6 months</li>
+                        <li><strong>Cost Optimization Champion:</strong> Drove 37% cost reduction in LBIO expenses from $5.2K to $3.3K monthly</li>
+                        <li><strong>Infrastructure Modernization:</strong> Migrated Nexus Repository from EFS to S3 (818GB), reducing storage costs by 70%</li>
+                        <li><strong>Security Excellence:</strong> Enhanced GitHub organization security across 50+ repositories with modern rulesets</li>
+                        <li><strong>Developer Productivity:</strong> Automated QA Docker image creation, reducing setup time from hours to 10 minutes</li>
+                        <li><strong>Compliance Leadership:</strong> Achieved SOC2 compliance through Vanta implementation with zero critical vulnerabilities</li>
                     </ul>
                     
                     <h3>Technologies & Tools</h3>
-                    <p>AWS, Azure, GCP, Terraform, GitHub Actions, Jenkins, Docker, Kubernetes, Ansible, Packer, MongoDB, Snowflake</p>
+                    <p>AWS, Azure, GCP, Terraform, GitHub Actions, Jenkins, Docker, Kubernetes, MongoDB, Snowflake, Databricks, Vanta, S3, EFS</p>
                     
-                    <h3>Impact Metrics</h3>
-                    <p>• 75% reduction in manual work through automation<br>
-                    • 40% increase in user footprint via package diversification<br>
+                    <h3>2025 Impact Metrics</h3>
+                    <p>• 520 tickets completed with 2,718 story points delivered<br>
+                    • 37% infrastructure cost reduction ($1,900/month savings)<br>
+                    • 70% storage cost savings through Nexus migration<br>
+                    • 50+ repositories modernized with enhanced security<br>
                     • 100% elimination of critical security vulnerabilities</p>
                 `
             },
@@ -1043,35 +1152,129 @@
                 `
             },
             'project-1': {
-                title: 'Greenfield SaaS Platform',
+                title: 'liquibase.io SaaS Platform',
                 content: `
                     <h3>Project Overview</h3>
-                    <p>A masterpiece of modern cloud architecture featuring the design and deployment of 2 
-                    greenfield SaaS applications to support Liquibase's Product-Led Growth (PLG) model.</p>
+                    <p>A masterpiece of modern cloud architecture featuring the design and deployment of 
+                    the liquibase.io SaaS platform with resilient multi-AZ infrastructure supporting enterprise customers.</p>
                     
                     <h3>The Challenge</h3>
                     <p>Transform traditional enterprise sales model into a modern PLG approach requiring 
-                    completely new infrastructure, deployment pipelines, and monitoring systems.</p>
+                    completely new infrastructure, deployment pipelines, and monitoring systems with 99.9% uptime requirements.</p>
                     
                     <h3>Technical Implementation</h3>
                     <ul>
-                        <li>Serverless architecture using AWS Lambda and API Gateway</li>
-                        <li>Infrastructure as Code with Terraform</li>
-                        <li>CI/CD pipelines with GitHub Actions</li>
-                        <li>Multi-environment deployment strategy</li>
-                        <li>Comprehensive monitoring and alerting</li>
+                        <li>Multi-AZ architecture across 3 availability zones for resilience</li>
+                        <li>Infrastructure as Code with Terraform for all components</li>
+                        <li>Automated deployment pipelines with GitHub Actions</li>
+                        <li>Comprehensive monitoring and alerting with status.liquibase.io</li>
+                        <li>Self-service infrastructure for CS/SE teams with guardrails</li>
                     </ul>
                     
                     <h3>Business Impact</h3>
-                    <p>• Enabled new revenue streams through PLG model<br>
-                    • Reduced time-to-market for new features<br>
-                    • Scalable architecture supporting growth<br>
-                    • Cost-effective serverless approach</p>
+                    <p>• Achieved 99.9% uptime for critical enterprise services<br>
+                    • Enabled self-service capabilities reducing DevOps ticket volume by 40%<br>
+                    • Scalable architecture supporting enterprise customer growth<br>
+                    • Cost-optimized infrastructure with automated cleanup policies</p>
                     
                     <h3>Technologies Used</h3>
-                    <p>AWS (Lambda, API Gateway, ECS, RDS), Terraform, GitHub Actions, Docker, Monitoring & Logging</p>
+                    <p>AWS (ECS, RDS, Lambda, API Gateway), Terraform, GitHub Actions, Docker, Grafana, Prometheus, CloudWatch</p>
                 `
-            }
+            },
+            'project-7': {
+                title: 'Nexus EFS to S3 Migration',
+                content: `
+                    <h3>Infrastructure Transformation Project</h3>
+                    <p>A strategic migration project to move 818GB of critical artifact storage from Amazon EFS 
+                    to S3, dramatically improving performance while reducing costs by 70%.</p>
+                    
+                    <h3>The Challenge</h3>
+                    <p>Existing Nexus deployment using EFS for blob storage was causing performance issues and 
+                    operational challenges. Network storage was causing slow backup/restore operations and 
+                    potential corruption during high I/O operations.</p>
+                    
+                    <h3>Technical Implementation</h3>
+                    <ul>
+                        <li>Complete migration from EFS to S3 blob storage</li>
+                        <li>Implemented S3 lifecycle policies for cost optimization</li>
+                        <li>Pre-signed URL configuration for direct downloads</li>
+                        <li>Zero-downtime migration using Nexus Change Repository Blob Store Task</li>
+                        <li>Cross-region replication for disaster recovery</li>
+                    </ul>
+                    
+                    <h3>Business Impact</h3>
+                    <p>• 70% reduction in storage costs compared to EFS<br>
+                    • Improved backup/restore performance from hours to minutes<br>
+                    • Enhanced reliability and availability for 818GB of artifacts<br>
+                    • Simplified operational procedures for artifact management</p>
+                    
+                    <h3>Technologies Used</h3>
+                    <p>Amazon S3, EFS, Nexus Repository 3.82.0, IAM, Terraform, AWS DataSync</p>
+                `
+            },
+            'project-8': {
+                title: 'GitHub Security Modernization',
+                content: `
+                    <h3>Organization-Wide Security Enhancement</h3>
+                    <p>A comprehensive security modernization initiative to migrate 50+ repositories from 
+                    legacy branch protection rules to modern repository rulesets, eliminating user-based bypass dependencies.</p>
+                    
+                    <h3>The Challenge</h3>
+                    <p>Existing branch protection relied on user-based bypasses (liquibot) creating security risks. 
+                    Needed to modernize to app-based bypasses while maintaining automation workflow functionality 
+                    across all repository types.</p>
+                    
+                    <h3>Technical Implementation</h3>
+                    <ul>
+                        <li>Migrated all repositories from github_branch_protection to github_repository_ruleset</li>
+                        <li>Created Terraform modules for standard ruleset patterns (default, lenient, strict)</li>
+                        <li>Configured GitHub App as bypass actor for automation workflows</li>
+                        <li>Phased migration approach with testing between batches</li>
+                        <li>Comprehensive cleanup of unused branch protection resources</li>
+                    </ul>
+                    
+                    <h3>Security Impact</h3>
+                    <p>• Enhanced security posture across 50+ repositories<br>
+                    • Eliminated user-based bypass dependencies<br>
+                    • Consistent protection levels across all repository types<br>
+                    • Maintained automation workflow functionality<br>
+                    • Improved compliance and audit capabilities</p>
+                    
+                    <h3>Technologies Used</h3>
+                    <p>GitHub Repository Rulesets, Terraform, GitHub App, Branch Protection, Spacelift</p>
+                `
+            },
+            'project-9': {
+                title: 'QA Docker Automation',
+                content: `
+                    <h3>Developer Productivity Enhancement</h3>
+                    <p>Automated QA testing pipeline enabling Docker image creation from any Liquibase 
+                    or Liquibase-Pro branch within 10 minutes, eliminating hours of manual setup time.</p>
+                    
+                    <h3>The Challenge</h3>
+                    <p>QA engineers needed an automated way to create Docker images from any branch for testing, 
+                    but manual Docker setup was time-consuming and error-prone, blocking testing cycles 
+                    and development velocity.</p>
+                    
+                    <h3>Technical Implementation</h3>
+                    <ul>
+                        <li>Updated GitHub Actions workflows in the docker repository</li>
+                        <li>Added ability to select from any Liquibase or Liquibase-Pro branch</li>
+                        <li>Automated image builds completing in under 10 minutes</li>
+                        <li>Push to private GHCR repository using branch-based tags</li>
+                        <li>Automated image cleanup when branches are deleted</li>
+                    </ul>
+                    
+                    <h3>Developer Impact</h3>
+                    <p>• Reduced manual setup time from hours to 10 minutes<br>
+                    • Enabled testing of any branch for 100+ engineers<br>
+                    • Automated cleanup reducing storage costs<br>
+                    • Improved development cycle velocity<br>
+                    • Enhanced QA testing capabilities</p>
+                    
+                    <h3>Technologies Used</h3>
+                    <p>GitHub Actions, Docker, GHCR (GitHub Container Registry), GitHub Packages Maven, Branch Cleanup</p>
+                `
             },
             'experience-2': {
                 title: 'DevOps Manager at Strongbox Data',
