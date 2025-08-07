@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Resume | Netflix Style</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #141414;
+            color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #141414;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s;
+        }
+
+        .netflix-logo-loading {
+            font-size: 60px;
+            color: #e50914;
+            font-weight: bold;
+            letter-spacing: -5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: #141414;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 28px;
+            color: #e50914;
+            font-weight: bold;
+            letter-spacing: -2px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin-left: 50px;
+            flex: 1;
+        }
+
+        .nav-links a {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #b3b3b3;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            background: #e50914;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(to bottom, transparent 60%, #141414 100%),
+                        linear-gradient(to right, #141414 30%, transparent 70%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23263238" width="1920" height="1080"/><g fill="%232e3f47" opacity="0.5"><rect width="400" height="400" x="100" y="100"/><rect width="400" height="400" x="600" y="600"/><rect width="400" height="400" x="1100" y="100"/><rect width="400" height="400" x="1600" y="600"/></g><text x="960" y="540" font-family="monospace" font-size="200" fill="%23405058" text-anchor="middle" opacity="0.1">CODE</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            margin-top: 100px;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #e5e5e5;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-play {
+            background: #fff;
+            color: #000;
+        }
+
+        .btn-play:hover {
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        .btn-info {
+            background: rgba(109, 109, 110, 0.7);
+            color: #fff;
+        }
+
+        .btn-info:hover {
+            background: rgba(109, 109, 110, 0.4);
+        }
+
+        /* Content Rows */
+        .content-section {
+            padding: 30px 50px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #e5e5e5;
+        }
+
+        .content-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .content-row::-webkit-scrollbar {
+            height: 0;
+        }
+
+        .content-card {
+            min-width: 250px;
+            height: 140px;
+            background: #2f2f2f;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s, z-index 0.3s;
+            overflow: hidden;
+        }
+
+        .content-card:hover {
+            transform: scale(1.3);
+            z-index: 10;
+        }
+
+        .content-card.large {
+            min-width: 350px;
+            height: 200px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .card-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            background: #181818;
+        }
+
+        .content-card:hover .card-info {
+            transform: translateY(0);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            color: #46d369;
+            margin-bottom: 5px;
+        }
+
+        .card-description {
+            font-size: 12px;
+            color: #d2d2d2;
+            line-height: 1.4;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            padding: 2px 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            font-size: 10px;
+            color: #b3b3b3;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            max-width: 850px;
+            margin: 50px auto;
+            background: #181818;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-hero {
+            height: 400px;
+            background: linear-gradient(to bottom, transparent 50%, #181818 100%),
+                        #2f3f4a;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+        }
+
+        .modal-hero-content h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            background: #181818;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .skill-item:hover {
+            background: rgba(229, 9, 20, 0.2);
+        }
+
+        /* Custom content backgrounds */
+        .experience-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .skill-card { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .project-card { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .education-card { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .achievement-card { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+        /* Scroll arrows */
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 20px 10px;
+            cursor: pointer;
+            z-index: 100;
+            transition: background 0.3s;
+        }
+
+        .scroll-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .scroll-arrow.left {
+            left: 0;
+        }
+
+        .scroll-arrow.right {
+            right: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                padding: 0 20px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: slideIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="netflix-logo-loading">NEWTON</div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div style="display: flex; align-items: center;">
+                <div class="logo">NEWTON</div>
+                <ul class="nav-links">
+                    <li><a onclick="scrollToSection('home')">Home</a></li>
+                    <li><a onclick="scrollToSection('experience')">Experience</a></li>
+                    <li><a onclick="scrollToSection('skills')">Skills</a></li>
+                    <li><a onclick="scrollToSection('projects')">Projects</a></li>
+                    <li><a onclick="scrollToSection('education')">Education</a></li>
+                </ul>
+            </div>
+            <div class="profile-section">
+                <span>🔍</span>
+                <span>🔔</span>
+                <div class="profile-icon">JN</div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content fade-in">
+            <h1 class="hero-title">Jake Newton</h1>
+            <p class="hero-subtitle">DevOps Director • Manager Series</p>
+            <p class="hero-description">
+                Experienced and enthusiastic DevOps leader who thrives in start-ups as well as established companies. 
+                Watch as our protagonist deploys greenfield SaaS applications, slashes AWS costs by 40%, 
+                and transforms manual processes into automated DevOps excellence in this action-packed tech saga.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-play" onclick="playIntro()">
+                    ▶ Play Intro
+                </button>
+                <button class="btn btn-info" onclick="showModal('about')">
+                    ℹ More Info
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="content-section" id="experience">
+        <h2 class="section-title">Continue Watching My Career</h2>
+        <div class="content-row">
+            <button class="scroll-arrow left" onclick="scrollRow('experience-row', -300)">‹</button>
+            <div class="content-row" id="experience-row">
+                <div class="content-card large experience-card" onclick="showModal('experience-1')">
+                    <div class="card-gradient"></div>
+                    <div class="card-info">
+                        <div class="card-title">The DevOps Revolution</div>
+                        <div class="card-meta">2019 - Present • 98% Match</div>
+                        <div class="card-description">Liquibase • Manager of DevOps</div>
+                        <div class="card-tags">
+                            <span class="tag">5 Product Teams</span>
+                            <span class="tag">AWS Cost -40%</span>
+                            <span class="tag">SOC2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card large experience-card" onclick="showModal('experience-2')">
+                    <div class="card-gradient"></div>
+                    <div class="card-info">
+                        <div class="card-title">The Data Stronghold</div>
+                        <div class="card-meta">2016 - 2019 • 95% Match</div>
+                        <div class="card-description">Strongbox Data • DevOps Manager</div>
+                        <div class="card-tags">
+                            <span class="tag">$1.5M Revenue</span>
+                            <span class="tag">98% Uptime</span>
+                            <span class="tag">Agile</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card large experience-card" onclick="showModal('experience-3')">
+                    <div class="card-gradient"></div>
+                    <div class="card-info">
+                        <div class="card-title">The IT Chronicles</div>
+                        <div class="card-meta">2012 - 2016 • 93% Match</div>
+                        <div class="card-description">Crossroads Systems • IT Manager</div>
+                        <div class="card-tags">
+                            <span class="tag">$14M Revenue</span>
+                            <span class="tag">Azure Migration</span>
+                            <span class="tag">10 Engineers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card large experience-card" onclick="showModal('experience-4')">
+                    <div class="card-gradient"></div>
+                    <div class="card-info">
+                        <div class="card-title">Network Origins</div>
+                        <div class="card-meta">2005 - 2012 • 90% Match</div>
+                        <div class="card-description">PFSI • Network Team Lead</div>
+                        <div class="card-tags">
+                            <span class="tag">2 Data Centers</span>
+                            <span class="tag">98% Uptime</span>
+                            <span class="tag">$200K Savings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="scroll-arrow right" onclick="scrollRow('experience-row', 300)">›</button>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="content-section" id="skills">
+        <h2 class="section-title">Trending Skills Right Now</h2>
+        <div class="content-row">
+            <div class="content-card skill-card" onclick="showModal('skills')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Infrastructure Mastery</div>
+                    <div class="card-meta">⭐ Expert Level</div>
+                    <div class="card-description">Linux, Windows, Networking</div>
+                </div>
+            </div>
+            <div class="content-card skill-card" onclick="showModal('skills')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">AWS Cloud Architect</div>
+                    <div class="card-meta">⭐ Advanced • Certified</div>
+                    <div class="card-description">EC2, Lambda, Serverless, Terraform</div>
+                </div>
+            </div>
+            <div class="content-card skill-card" onclick="showModal('skills')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Container Orchestration</div>
+                    <div class="card-meta">⭐ Advanced</div>
+                    <div class="card-description">Docker, Kubernetes, ECS</div>
+                </div>
+            </div>
+            <div class="content-card skill-card" onclick="showModal('skills')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Configuration & Automation</div>
+                    <div class="card-meta">⭐ Advanced</div>
+                    <div class="card-description">Ansible, Packer, Terraform</div>
+                </div>
+            </div>
+            <div class="content-card skill-card" onclick="showModal('skills')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Security & Compliance</div>
+                    <div class="card-meta">⭐ Advanced • SOC2</div>
+                    <div class="card-description">Vulnerability Management, IAM, Compliance</div>
+                </div>
+            </div>
+            <div class="content-card skill-card" onclick="showModal('skills')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">CI/CD Pipelines</div>
+                    <div class="card-meta">⭐ Advanced</div>
+                    <div class="card-description">Jenkins, GitHub Actions, Bamboo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="content-section" id="projects">
+        <h2 class="section-title">Award-Winning Projects</h2>
+        <div class="content-row">
+            <div class="content-card project-card" onclick="showModal('project-1')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Greenfield SaaS Platform</div>
+                    <div class="card-meta">🏆 PLG Model</div>
+                    <div class="card-description">2 Serverless Applications Built</div>
+                    <div class="card-tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">Serverless</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card" onclick="showModal('project-2')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Jenkins Pipeline Optimization</div>
+                    <div class="card-meta">⚡ 48hrs → 5hrs</div>
+                    <div class="card-description">90% Build Time Reduction</div>
+                    <div class="card-tags">
+                        <span class="tag">Jenkins</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card" onclick="showModal('project-3')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Database Platform Expansion</div>
+                    <div class="card-meta">📈 100% Growth</div>
+                    <div class="card-description">Multi-Cloud Database Support</div>
+                    <div class="card-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Snowflake</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card" onclick="showModal('project-4')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">AWS Cost Optimization</div>
+                    <div class="card-meta">💰 40% Reduction</div>
+                    <div class="card-description">Rightsizing & Best Practices</div>
+                    <div class="card-tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">FinOps</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card" onclick="showModal('project-5')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Release Automation</div>
+                    <div class="card-meta">🤖 75% Less Manual</div>
+                    <div class="card-description">Automated Release Pipeline</div>
+                    <div class="card-tags">
+                        <span class="tag">GitHub Actions</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">RPM/DEB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card project-card" onclick="showModal('project-6')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">SOC2 Compliance</div>
+                    <div class="card-meta">🛡️ 100% Secure</div>
+                    <div class="card-description">Zero Critical Vulnerabilities</div>
+                    <div class="card-tags">
+                        <span class="tag">Security</span>
+                        <span class="tag">Compliance</span>
+                        <span class="tag">SOC2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="content-section" id="education">
+        <h2 class="section-title">Educational Background</h2>
+        <div class="content-row">
+            <div class="content-card education-card" onclick="showModal('education')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Computer Science Degree</div>
+                    <div class="card-meta">Completed 2004</div>
+                    <div class="card-description">University of Iowa • Bachelor's Degree</div>
+                </div>
+            </div>
+            <div class="content-card achievement-card" onclick="showModal('certifications')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">AWS DevOps Engineer</div>
+                    <div class="card-meta">Professional • 2020</div>
+                    <div class="card-description">Advanced Cloud Architecture</div>
+                </div>
+            </div>
+            <div class="content-card achievement-card" onclick="showModal('certifications')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">AWS Solutions Architect</div>
+                    <div class="card-meta">Associate • 2019</div>
+                    <div class="card-description">Cloud Infrastructure Design</div>
+                </div>
+            </div>
+            <div class="content-card achievement-card" onclick="showModal('certifications')">
+                <div class="card-gradient"></div>
+                <div class="card-info">
+                    <div class="card-title">Community Leader</div>
+                    <div class="card-meta">Active Member</div>
+                    <div class="card-description">Austin DevOps & Cloud Meetups</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">×</div>
+            <div class="modal-hero">
+                <div class="modal-hero-content">
+                    <h2 id="modal-title">Title</h2>
+                    <div class="hero-buttons">
+                        <button class="btn btn-play" onclick="window.location.href='mailto:aliasjake@gmail.com'">▶ Contact Me</button>
+                        <button class="btn btn-info" onclick="window.location.href='https://linkedin.com/in/jakenewton'">LinkedIn Profile</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hide loading screen
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 500);
+        }, 1500);
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Modal content data
+        const modalData = {
+            'about': {
+                title: 'About Jake Newton',
+                content: `
+                    <h3>Synopsis</h3>
+                    <p>An experienced DevOps leader with 15+ years in the tech industry, specializing in infrastructure automation, 
+                    cloud architecture, and team leadership. This series chronicles Jake's evolution from network engineer to DevOps director, 
+                    featuring epic infrastructure transformations, cost optimizations, and security implementations.</p>
+                    
+                    <h3>Contact Information</h3>
+                    <p>📧 Email: aliasjake@gmail.com<br>
+                    📞 Phone: 214-926-0166<br>
+                    🔗 LinkedIn: linkedin.com/in/jakenewton<br>
+                    🐙 GitHub: github.com/jnewton03</p>
+                    
+                    <h3>Career Highlights</h3>
+                    <ul>
+                        <li>Season 1: "Network Foundations" - Building reliable infrastructure at PFSI</li>
+                        <li>Season 2: "Cloud Migration" - Leading Azure transitions at Crossroads</li>
+                        <li>Season 3: "DevOps Transformation" - Revolutionizing processes at Strongbox</li>
+                        <li>Season 4: "The Modern Era" - Serverless and automation at Liquibase</li>
+                    </ul>
+                    
+                    <h3>Skills Summary</h3>
+                    <p>"I have a very particular set of skills. Skills I have acquired over a very long career. 
+                    Skills that make me the right person for a company like yours." - Jake Newton's Professional Summary</p>
+                `
+            },
+            'experience-1': {
+                title: 'Manager of DevOps at Liquibase',
+                content: `
+                    <h3>The Current Season (2019 - Present)</h3>
+                    <p>The latest chapter in Jake's career showcases his leadership in building DevOps excellence 
+                    at a growing database change management company, where he transformed infrastructure and processes.</p>
+                    
+                    <h3>Major Story Arcs</h3>
+                    <ul>
+                        <li><strong>Team Building:</strong> Built out DevOps Team from scratch to support 5 different product teams</li>
+                        <li><strong>Greenfield Innovation:</strong> Designed, built, and deployed 2 greenfield SaaS applications using Serverless architecture</li>
+                        <li><strong>The Great Optimization:</strong> Reduced Jenkins pipeline time from 48 hours to under 5 hours, saving massive costs</li>
+                        <li><strong>Database Platform Revolution:</strong> Increased platform support by 100% using multi-cloud strategy</li>
+                        <li><strong>Cost Optimization Saga:</strong> Slashed AWS bill by 40% through rightsizing and best practices</li>
+                        <li><strong>Security Champion:</strong> Achieved SOC2 compliance with zero critical vulnerabilities</li>
+                    </ul>
+                    
+                    <h3>Technologies & Tools</h3>
+                    <p>AWS, Azure, GCP, Terraform, GitHub Actions, Jenkins, Docker, Kubernetes, Ansible, Packer, MongoDB, Snowflake</p>
+                    
+                    <h3>Impact Metrics</h3>
+                    <p>• 75% reduction in manual work through automation<br>
+                    • 40% increase in user footprint via package diversification<br>
+                    • 100% elimination of critical security vulnerabilities</p>
+                `
+            },
+            'skills': {
+                title: 'DevOps Skills Arsenal',
+                content: `
+                    <h3>Infrastructure & Systems</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Infrastructure ⭐⭐⭐⭐⭐ Expert</div>
+                        <div class="skill-item">Linux/Windows ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Networking ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Security ⭐⭐⭐⭐⭐ Advanced</div>
+                    </div>
+                    
+                    <h3>Cloud Platforms</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">AWS ⭐⭐⭐⭐⭐ Advanced + Certified</div>
+                        <div class="skill-item">Azure ⭐⭐⭐⭐ Intermediate</div>
+                        <div class="skill-item">GCP ⭐⭐⭐ Intermediate</div>
+                        <div class="skill-item">Multi-Cloud ⭐⭐⭐⭐ Advanced</div>
+                    </div>
+                    
+                    <h3>Automation & Configuration</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Docker ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Kubernetes ⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Ansible ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Terraform ⭐⭐⭐⭐⭐ Advanced</div>
+                    </div>
+                    
+                    <h3>CI/CD & Scripting</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Jenkins ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">GitHub Actions ⭐⭐⭐⭐⭐ Advanced</div>
+                        <div class="skill-item">Bash/Python ⭐⭐⭐⭐ Intermediate</div>
+                        <div class="skill-item">Git ⭐⭐⭐⭐ Intermediate</div>
+                    </div>
+                    
+                    <h3>Leadership Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Team Leadership ⭐⭐⭐⭐⭐ Expert</div>
+                        <div class="skill-item">Collaboration ⭐⭐⭐⭐⭐ Expert</div>
+                        <div class="skill-item">Critical Thinking ⭐⭐⭐⭐⭐ Expert</div>
+                        <div class="skill-item">Project Management ⭐⭐⭐⭐⭐ Expert</div>
+                    </div>
+                `
+            },
+            'project-1': {
+                title: 'Greenfield SaaS Platform',
+                content: `
+                    <h3>Project Overview</h3>
+                    <p>A masterpiece of modern cloud architecture featuring the design and deployment of 2 
+                    greenfield SaaS applications to support Liquibase's Product-Led Growth (PLG) model.</p>
+                    
+                    <h3>The Challenge</h3>
+                    <p>Transform traditional enterprise sales model into a modern PLG approach requiring 
+                    completely new infrastructure, deployment pipelines, and monitoring systems.</p>
+                    
+                    <h3>Technical Implementation</h3>
+                    <ul>
+                        <li>Serverless architecture using AWS Lambda and API Gateway</li>
+                        <li>Infrastructure as Code with Terraform</li>
+                        <li>CI/CD pipelines with GitHub Actions</li>
+                        <li>Multi-environment deployment strategy</li>
+                        <li>Comprehensive monitoring and alerting</li>
+                    </ul>
+                    
+                    <h3>Business Impact</h3>
+                    <p>• Enabled new revenue streams through PLG model<br>
+                    • Reduced time-to-market for new features<br>
+                    • Scalable architecture supporting growth<br>
+                    • Cost-effective serverless approach</p>
+                    
+                    <h3>Technologies Used</h3>
+                    <p>AWS (Lambda, API Gateway, ECS, RDS), Terraform, GitHub Actions, Docker, Monitoring & Logging</p>
+                `
+            }
+            },
+            'experience-2': {
+                title: 'DevOps Manager at Strongbox Data',
+                content: `
+                    <h3>The Data Stronghold Era (2016 - 2019)</h3>
+                    <p>A pivotal season where Jake mastered DevOps practices while managing a team of 5 engineers 
+                    and aligning technical excellence with business revenue targets.</p>
+                    
+                    <h3>Key Achievements</h3>
+                    <ul>
+                        <li><strong>Revenue Alignment:</strong> Synchronized DevOps efforts with customer commitments to meet $1.5M revenue targets</li>
+                        <li><strong>Team Leadership:</strong> Led Agile (Scrum) DevOps team of 5 engineers to 80% On-Time Delivery using Jira</li>
+                        <li><strong>Build Optimization:</strong> Automated CI/CD using Bamboo, reducing build times by 60%</li>
+                        <li><strong>Developer Productivity:</strong> Increased efficiency by 50% using Vagrant and Ansible for environment management</li>
+                        <li><strong>Infrastructure Transformation:</strong> Moved from 75% to 98% production uptime with hybrid AWS architecture</li>
+                        <li><strong>Support Automation:</strong> Reduced support calls by 30% through Bash and Python scripting solutions</li>
+                    </ul>
+                    
+                    <h3>Technical Stack</h3>
+                    <p>AWS, Bamboo, Vagrant, Ansible, Bash, Python, Jira, Linux/Windows VMs</p>
+                    
+                    <h3>Management Impact</h3>
+                    <p>Successfully balanced technical innovation with business needs, proving that DevOps excellence 
+                    directly contributes to revenue growth and customer satisfaction.</p>
+                `
+            },
+            'experience-3': {
+                title: 'IT Manager at Crossroads Systems',
+                content: `
+                    <h3>The IT Chronicles (2012 - 2016)</h3>
+                    <p>Jake's transition into management, leading a team of 10 SysAdmins while driving 
+                    significant cost savings and architectural improvements.</p>
+                    
+                    <h3>Major Accomplishments</h3>
+                    <ul>
+                        <li><strong>Revenue Generation:</strong> Aligned IT strategy with product business, contributing to $14M in revenue</li>
+                        <li><strong>Cost Optimization:</strong> Reduced expenses by $200k through strategic contract negotiations and open source adoption</li>
+                        <li><strong>Data Center Excellence:</strong> Executed multiple data center consolidations and moves with 90% uptime</li>
+                        <li><strong>Team Leadership:</strong> Successfully managed IT team of 10 SysAdmins supporting 120 employees</li>
+                        <li><strong>Cloud Migration Pioneer:</strong> Migrated on-premise services to Microsoft Azure and Google Apps in under 90 days with 100% uptime</li>
+                        <li><strong>Infrastructure Management:</strong> Maintained network of 100+ Linux and Windows VMs</li>
+                    </ul>
+                    
+                    <h3>Technologies & Platforms</h3>
+                    <p>Microsoft Azure, Google Apps (now Google Workspace), Linux, Windows, Data Center Infrastructure</p>
+                    
+                    <h3>Leadership Impact</h3>
+                    <p>Demonstrated exceptional ability to balance technical excellence with business objectives, 
+                    setting the foundation for future DevOps leadership roles.</p>
+                `
+            },
+            'experience-4': {
+                title: 'Network Team Lead at PFSI',
+                content: `
+                    <h3>Network Origins (2005 - 2012)</h3>
+                    <p>The foundational years where Jake built expertise in network infrastructure, 
+                    team leadership, and cost optimization across multiple data centers and offices.</p>
+                    
+                    <h3>Core Responsibilities & Achievements</h3>
+                    <ul>
+                        <li><strong>Cost Management:</strong> Reduced expenses by $200k+ through strategic circuit negotiations and contract renegotiations</li>
+                        <li><strong>Infrastructure Leadership:</strong> Led Network and Security team of 6 engineers responsible for 98% uptime across 2 data centers and 10 PFSI offices</li>
+                        <li><strong>Network Architecture:</strong> Established Data Center and IP Schemes to consolidate networks for 5 operating companies under Penson umbrella</li>
+                        <li><strong>High Availability:</strong> Maintained critical financial services infrastructure with enterprise-grade reliability</li>
+                    </ul>
+                    
+                    <h3>Technical Focus Areas</h3>
+                    <p>Network Infrastructure, Security Systems, Data Center Operations, IP Networking, Financial Services Compliance</p>
+                    
+                    <h3>Foundation Building</h3>
+                    <p>This role established Jake's reputation for combining technical expertise with business acumen, 
+                    laying the groundwork for his future success in DevOps leadership positions.</p>
+                `
+            }
+        };
+
+        // Modal functions
+        function showModal(contentKey) {
+            const modal = document.getElementById('modal');
+            const data = modalData[contentKey] || modalData['about'];
+            
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-body').innerHTML = data.content;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Scroll functions
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollRow(rowId, amount) {
+            const row = document.getElementById(rowId);
+            row.scrollLeft += amount;
+        }
+
+        // Play intro function
+        function playIntro() {
+            // Create a fun intro message
+            const introMessages = [
+                "🎬 Welcome to Jake Newton's DevOps Journey!",
+                "🚀 From Network Engineer to DevOps Director...",
+                "☁️ Featuring: AWS cost optimization, team leadership, and infrastructure automation!",
+                "🛡️ Special guest: SOC2 compliance and zero security vulnerabilities!",
+                "📞 Ready to connect? Email: aliasjake@gmail.com or call: 214-926-0166"
+            ];
+            
+            let currentMessage = 0;
+            const showNextMessage = () => {
+                if (currentMessage < introMessages.length) {
+                    alert(introMessages[currentMessage]);
+                    currentMessage++;
+                    if (currentMessage < introMessages.length) {
+                        setTimeout(showNextMessage, 1000);
+                    }
+                }
+            };
+            showNextMessage();
+        }
+
+        // Add hover sound effects (optional enhancement)
+        document.querySelectorAll('.content-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Could add a subtle hover sound here
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
