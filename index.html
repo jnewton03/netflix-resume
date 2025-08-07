@@ -41,6 +41,20 @@
             align-items: center;
             z-index: 10000;
             transition: opacity 0.5s;
+            animation: hideLoadingScreen 3s forwards;
+        }
+
+        /* CSS-only fallback - hides loading screen after 3 seconds even if JavaScript fails */
+        @keyframes hideLoadingScreen {
+            0%, 66% { 
+                opacity: 1; 
+                pointer-events: all; 
+            }
+            100% { 
+                opacity: 0; 
+                pointer-events: none; 
+                visibility: hidden;
+            }
         }
 
         .netflix-logo-loading {
@@ -953,13 +967,13 @@
         });
 
         // Modal content data
-        const modalData = {
+        var modalData = {
             'about': {
                 title: 'About Jake Newton - DevOps Manager',
                 content: `
                     <h3>Synopsis</h3>
                     <p>An experienced DevOps leader with 15+ years in the tech industry, specializing in infrastructure automation, 
-                    cloud architecture, and team leadership. This series chronicles Jake's evolution from network engineer to DevOps director, 
+                    cloud architecture, and team leadership. This series chronicles Jake's evolution from network engineer to DevOps Manager, 
                     featuring epic infrastructure transformations, cost optimizations, and security implementations.</p>
                     
                     <h3>Contact Information</h3>
@@ -1161,20 +1175,20 @@
         function showModal(contentKey) {
             console.log('JAKEFLIX: showModal called with key:', contentKey);
             try {
-                const modal = document.getElementById('modal');
+                var modal = document.getElementById('modal');
                 if (!modal) {
                     console.error('JAKEFLIX: Modal element not found');
                     return;
                 }
                 
-                const data = modalData[contentKey] || modalData['about'];
+                var data = modalData[contentKey] || modalData['about'];
                 if (!data) {
                     console.error('JAKEFLIX: Modal data not found for key:', contentKey);
                     return;
                 }
                 
-                const titleElement = document.getElementById('modal-title');
-                const bodyElement = document.getElementById('modal-body');
+                var titleElement = document.getElementById('modal-title');
+                var bodyElement = document.getElementById('modal-body');
                 
                 if (titleElement) titleElement.textContent = data.title;
                 if (bodyElement) bodyElement.innerHTML = data.content;
@@ -1192,7 +1206,7 @@
 
         function closeModal() {
             try {
-                const modal = document.getElementById('modal');
+                var modal = document.getElementById('modal');
                 if (modal) {
                     modal.style.display = 'none';
                     document.body.style.overflow = 'auto';
@@ -1208,7 +1222,7 @@
 
         // Click outside modal to close
         window.onclick = function(event) {
-            const modal = document.getElementById('modal');
+            var modal = document.getElementById('modal');
             if (event.target == modal) {
                 closeModal();
             }
@@ -1217,7 +1231,7 @@
         // Scroll functions
         function scrollToSection(sectionId) {
             try {
-                const element = document.getElementById(sectionId);
+                var element = document.getElementById(sectionId);
                 if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
                     console.log('JAKEFLIX: Scrolled to section:', sectionId);
@@ -1229,7 +1243,7 @@
 
         function scrollRow(rowId, amount) {
             try {
-                const row = document.getElementById(rowId);
+                var row = document.getElementById(rowId);
                 if (row) {
                     row.scrollLeft += amount;
                     console.log('JAKEFLIX: Scrolled row:', rowId, 'by', amount);
@@ -1248,7 +1262,7 @@
             try {
                 console.log('JAKEFLIX: Playing intro');
                 // Create a fun intro message
-                const introMessages = [
+                var introMessages = [
                     "Welcome to Jake Newton's DevOps Journey!",
                     "From Network Engineer to DevOps Manager...",
                     "Cloud Featuring: AWS cost optimization, team leadership, and infrastructure automation!",
@@ -1278,7 +1292,7 @@
         // Mobile navigation functions
         function openMobileMenu() {
             try {
-                const mobileNav = document.getElementById('mobile-nav');
+                var mobileNav = document.getElementById('mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.display = 'block';
                     document.body.style.overflow = 'hidden';
@@ -1291,7 +1305,7 @@
 
         function closeMobileMenu() {
             try {
-                const mobileNav = document.getElementById('mobile-nav');
+                var mobileNav = document.getElementById('mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.display = 'none';
                     document.body.style.overflow = 'auto';
